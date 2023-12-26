@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+  php-fpm:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - hotels
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - .:/var/www/html
+      - .docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8090:80"
+    networks:
+      - hotels
+    depends_on:
+      - php-fpm
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: hotels
+    ports:
+      - "6432:5432"
+    networks:
+      - hotels
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - hotels
+
+networks:
+  hotels:
+    driver: bridge
