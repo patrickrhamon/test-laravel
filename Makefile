@@ -57,6 +57,11 @@ pest:
 pint:
 	docker-compose run --rm php-fpm ./vendor/bin/pint
 
+all:
+	@$(MAKE) pint
+	@$(MAKE) stan
+	@$(MAKE) pest
+
 clean:
 	rm -rf vendor
 	rm -rf src/vendor
