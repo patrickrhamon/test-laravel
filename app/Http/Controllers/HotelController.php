@@ -13,6 +13,7 @@ class HotelController extends Controller
     public function index()
     {
         $data['hotels'] = Hotel::all();
+
         return view('hotel/index', $data);
     }
 

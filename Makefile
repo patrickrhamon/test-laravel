@@ -48,6 +48,15 @@ test:
 logs:
 	docker-compose logs -f
 
+stan:
+	docker-compose run --rm php-fpm ./vendor/bin/phpstan analyse --memory-limit=2G
+
+pest:
+	docker-compose run --rm php-fpm ./vendor/bin/pest
+
+pint:
+	docker-compose run --rm php-fpm ./vendor/bin/pint
+
 clean:
 	rm -rf vendor
 	rm -rf src/vendor

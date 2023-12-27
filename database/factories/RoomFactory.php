@@ -15,7 +15,6 @@ class RoomFactory extends Factory
      *
      * @var class-string<\Illuminate\Database\Eloquent\Model>
      */
-
     protected $model = Room::class;
 
     /**
