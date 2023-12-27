@@ -6,6 +6,6 @@
     <label>Cidade:</label> <input type="text" name="city" value="{{ $hotel->city }}"><br />
     <label>Estado:</label> <input type="text" name="state" value="{{ $hotel->state }}"><br />
     <label>CEP:</label> <input type="text" name="zip_code" value="{{ $hotel->zip_code }}"><br />
-    <label>Site:</label> <input type="text" name="website" value="{{ $hotel->website }}">
-    <button type="submit">Salvar</button>
+    <label>Site:</label> <input type="text" name="website" value="{{ $hotel->website }}"><br />
+    <a href="{{ route('hotel.index') }}">Voltar</a> <button type="submit">Salvar</button>
 </form>

@@ -5,11 +5,12 @@
     <label>Cidade:</label> <input type="text" disabled name="city" value="{{ $hotel->city }}"><br />
     <label>Estado:</label> <input type="text" disabled name="state" value="{{ $hotel->state }}"><br />
     <label>CEP:</label> <input type="text" disabled name="zip_code" value="{{ $hotel->zip_code }}"><br />
-    <label>Site:</label> <input type="text" disabled name="website" value="{{ $hotel->website }}">
+    <label>Site:</label> <input type="text" disabled name="website" value="{{ $hotel->website }}"><br />
 </form>
 
 <form action="{{ route('hotel.destroy', [$hotel->id]) }}" method="POST">
     {{ csrf_field() }}
     <input type="hidden" name="_method" value="DELETE">
+    <a href="{{ route('hotel.index') }}">Voltar</a>
     <button type="submit">Deletar</button>
 </form>
