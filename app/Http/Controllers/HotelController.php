@@ -22,7 +22,7 @@ class HotelController extends Controller
      */
     public function create()
     {
-        //
+        return view('hotel/create');
     }
 
     /**
@@ -30,7 +30,16 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Hotel::create([
+            'name' => $request->name,
+            'address' => $request->address,
+            'city' => $request->city,
+            'state' => $request->state,
+            'zip_code' => $request->zip_code,
+            'website' => $request->website,
+        ]);
+
+        return redirect()->route('hotel.index');
     }
 
     /**
@@ -38,7 +47,9 @@ class HotelController extends Controller
      */
     public function show(Hotel $hotel)
     {
-        //
+        $data['hotel'] = $hotel;
+
+        return view('hotel/show', $data);
     }
 
     /**
@@ -46,7 +57,9 @@ class HotelController extends Controller
      */
     public function edit(Hotel $hotel)
     {
-        //
+        $data['hotel'] = $hotel;
+
+        return view('hotel/edit', $data);
     }
 
     /**
@@ -54,7 +67,16 @@ class HotelController extends Controller
      */
     public function update(Request $request, Hotel $hotel)
     {
-        //
+        $hotel->update([
+            'name' => $request->name,
+            'address' => $request->address,
+            'city' => $request->city,
+            'state' => $request->state,
+            'zip_code' => $request->zip_code,
+            'website' => $request->website,
+        ]);
+
+        return redirect()->route('hotel.index');
     }
 
     /**
@@ -62,6 +84,8 @@ class HotelController extends Controller
      */
     public function destroy(Hotel $hotel)
     {
-        //
+        $hotel->delete();
+
+        return redirect()->route('hotel.index');
     }
 }
