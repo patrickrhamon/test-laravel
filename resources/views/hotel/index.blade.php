@@ -5,6 +5,10 @@
 
 <ul>
     @foreach($hotels as $hotel)
-        <li>{{ $hotel->name }} - <a href="{{ route('hotel.show', [$hotel->id]) }}">Mostrar</a> <a href="{{ route('hotel.edit', [$hotel->id]) }}">Editar</a> </li>
+        <li>{{ $hotel->name }} -
+            <a href="{{ route('hotel.show', [$hotel->id]) }}">Mostrar</a>
+            <a href="{{ route('hotel.edit', [$hotel->id]) }}">Editar</a>
+            <a href="{{ route('room.index', [$hotel->id]) }}">Quartos</a>
+        </li>
     @endforeach
 </ul>

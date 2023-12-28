@@ -42,17 +42,20 @@ seed:
 artisan-seed:
 	docker-compose run --rm php-fpm php artisan db:seed
 
-test:
-	docker-compose run --rm php-fpm ./vendor/bin/phpunit
-
 logs:
 	docker-compose logs -f
+
+tinker:
+	docker-compose run --rm php-fpm php artisan tinker
 
 stan:
 	docker-compose run --rm php-fpm ./vendor/bin/phpstan analyse --memory-limit=2G
 
 pest:
 	docker-compose run --rm php-fpm ./vendor/bin/pest
+
+test:
+	docker-compose run --rm php-fpm ./vendor/bin/phpunit
 
 pint:
 	docker-compose run --rm php-fpm ./vendor/bin/pint
