@@ -25,6 +25,7 @@ class RoomController extends Controller
     public function create(Hotel $hotel)
     {
         $data['hotel'] = $hotel;
+
         return view('hotel/room/create', $data);
     }
 
@@ -48,7 +49,7 @@ class RoomController extends Controller
     public function show(Hotel $hotel, Room $room)
     {
         if ($hotel->id !== $room->hotel_id) {
-            dd("nao é igual");
+            dd('nao é igual');
         }
 
         $data['hotel'] = $hotel;
@@ -63,7 +64,7 @@ class RoomController extends Controller
     public function edit(Hotel $hotel, Room $room)
     {
         if ($hotel->id !== $room->hotel_id) {
-            dd("nao é igual");
+            dd('nao é igual');
         }
 
         $data['hotel'] = $hotel;
@@ -78,7 +79,7 @@ class RoomController extends Controller
     public function update(Request $request, Hotel $hotel, Room $room)
     {
         if ($hotel->id !== $room->hotel_id) {
-            dd("nao é igual");
+            dd('nao é igual');
         }
 
         $room->update([
@@ -95,10 +96,11 @@ class RoomController extends Controller
     public function destroy(Hotel $hotel, Room $room)
     {
         if ($hotel->id !== $room->hotel_id) {
-            dd("nao é igual");
+            dd('nao é igual');
         }
 
         $room->delete();
+
         return redirect()->route('room.index', [$hotel->id]);
     }
 }
