@@ -32,6 +32,16 @@ RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 RUN php -r "unlink('composer-setup.php');"
 RUN composer self-update --2
 
+# Install Node.js and npm
+RUN apk add --no-cache nodejs npm
+
+# Add xdebug
+RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS
+RUN apk add --update linux-headers
+RUN pecl install xdebug-3.3.1
+RUN docker-php-ext-enable xdebug
+RUN apk del -f .build-deps
+
 # Copy your PHP application files to the container
 COPY . /var/www/html
 

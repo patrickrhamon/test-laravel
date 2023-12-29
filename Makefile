@@ -24,11 +24,39 @@ stop:
 down:
 	docker-compose down
 
-composer-i:
+up:
+	@$(MAKE) start
+	@$(MAKE) composeri
+	@$(MAKE) npmi
+	@$(MAKE) won
+
+composeri:
 	@$(MAKE) composer-install
 
 composer-install:
 	docker-compose run --rm php-fpm composer install
+
+npmi:
+	@$(MAKE) npm-install
+
+npm-install:
+	docker-compose run --rm php-fpm npm install
+
+npmd:
+	@$(MAKE) npm-dev
+
+npm-dev:
+	docker-compose run --rm php-fpm npm run dev
+
+npmp:
+	@$(MAKE) npm-production
+
+npm-production:
+	docker-compose run --rm php-fpm npm run production
+
+tailwind:
+	docker-compose run --rm php-fpm npx tailwindcss -i ./resources/css/app.css -o ./public/dist/css/app.css
+	@$(MAKE) won
 
 migrate:
 	@$(MAKE) artisan-migrate
@@ -49,7 +77,7 @@ tinker:
 	docker-compose run --rm php-fpm php artisan tinker
 
 stan:
-	docker-compose run --rm php-fpm ./vendor/bin/phpstan analyse --memory-limit=2G
+	docker-compose run --rm php-fpm ./vendor/bin/phpstan analyse
 
 pest:
 	docker-compose run --rm php-fpm ./vendor/bin/pest

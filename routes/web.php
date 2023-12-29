@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\RoomController;
+use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,29 +18,35 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('auth/login');
+})->name('login');
 
-Route::prefix('hotels')->group(function () {
-    Route::name('hotel.')->group(function () {
-        Route::get('/', [HotelController::class, 'index'])->name('index');
-        Route::get('/create', [HotelController::class, 'create'])->name('create');
-        Route::post('/store', [HotelController::class, 'store'])->name('store');
-        Route::get('/show/{hotel}', [HotelController::class, 'show'])->name('show');
-        Route::get('/edit/{hotel}', [HotelController::class, 'edit'])->name('edit');
-        Route::put('/update/{hotel}', [HotelController::class, 'update'])->name('update');
-        Route::delete('/destroy/{hotel}', [HotelController::class, 'destroy'])->name('destroy');
-    });
+Route::post('/login', [AuthenticationController::class, 'login'])->name('logar');
 
-    Route::prefix('/{hotel}/rooms')->group(function () {
-        Route::name('room.')->group(function () {
-            Route::get('/', [RoomController::class, 'index'])->name('index');
-            Route::get('/create', [RoomController::class, 'create'])->name('create');
-            Route::post('/store', [RoomController::class, 'store'])->name('store');
-            Route::get('/show/{room}', [RoomController::class, 'show'])->name('show');
-            Route::get('/edit/{room}', [RoomController::class, 'edit'])->name('edit');
-            Route::put('/update/{room}', [RoomController::class, 'update'])->name('update');
-            Route::delete('/destroy/{room}', [RoomController::class, 'destroy'])->name('destroy');
+Route::middleware([Authenticate::class])->group(function () {
+    Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
+
+    Route::prefix('hotels')->group(function () {
+        Route::name('hotel.')->group(function () {
+            Route::get('/', [HotelController::class, 'index'])->name('index');
+            Route::get('/create', [HotelController::class, 'create'])->name('create');
+            Route::post('/store', [HotelController::class, 'store'])->name('store');
+            Route::get('/show/{hotel}', [HotelController::class, 'show'])->name('show');
+            Route::get('/edit/{hotel}', [HotelController::class, 'edit'])->name('edit');
+            Route::put('/update/{hotel}', [HotelController::class, 'update'])->name('update');
+            Route::delete('/destroy/{hotel}', [HotelController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('/{hotel}/rooms')->group(function () {
+            Route::name('room.')->group(function () {
+                Route::get('/', [RoomController::class, 'index'])->name('index');
+                Route::get('/create', [RoomController::class, 'create'])->name('create');
+                Route::post('/store', [RoomController::class, 'store'])->name('store');
+                Route::get('/show/{room}', [RoomController::class, 'show'])->name('show');
+                Route::get('/edit/{room}', [RoomController::class, 'edit'])->name('edit');
+                Route::put('/update/{room}', [RoomController::class, 'update'])->name('update');
+                Route::delete('/destroy/{room}', [RoomController::class, 'destroy'])->name('destroy');
+            });
         });
     });
 });

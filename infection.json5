@@ -3,11 +3,17 @@
     "source": {
         "directories": [
             "app",
-            "database",
-            "routes"
+            "routes",
         ]
+    },
+    "logs": {
+        "text": "tests/Infection/infection.log",
+        "html": "tests/Infection/infection.html",
+        "summary": "tests/Infection/summary.log",
+        "json": "tests/Infection/infection-log.json",
     },
     "mutators": {
         "@default": true
-    }
+    },
+    "testFramework": "pest"
 }
