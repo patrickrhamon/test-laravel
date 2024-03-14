@@ -16,9 +16,14 @@ class HotelService
         $this->model = DB::table('hotels');
     }
 
-    public function getHotelsPaginated()
+    public function getHotelsPaginated(?string $cursor)
     {
-        $hotels = Hotel::orderBy('name')->cursorPaginate(5);
+//        dd($cursor);
+        $items = Hotel::orderBy('name')->cursorPaginate(5)->withQueryString($cursor);
+        $data['hotels'] = $items->items();
+        $data['cursor'] = $items->nextPageUrl();
+        $data['total'] = Hotel::get()->count();
+        dd($data);
         return $hotels;
     }
 }
