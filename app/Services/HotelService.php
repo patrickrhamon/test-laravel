@@ -23,6 +23,9 @@ class HotelService
         $data['hotels'] = $items->items();
         $data['cursor'] = $items->nextPageUrl();
         $data['total'] = Hotel::get()->count();
+        $data['ids'] = array_map(function (Hotel $hotel) {
+            return $hotel->id;
+        }, $items->items());
         dd($data);
         return $hotels;
     }
