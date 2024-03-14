@@ -3,16 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hotel;
+use App\Services\HotelService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HotelController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['hotels'] = Hotel::all();
+        $service = new HotelService();
+        $data['hotels'] = $service->getHotelsPaginated('');
+        $data['totalHotels'] = Hotel::get()->count();
+dd($data);
+//        $data['hotels'] = DB::table('hotels')->orderBy('name')->cursorPaginate(5);
 
         return view('hotel/index', $data);
     }

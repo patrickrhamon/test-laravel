@@ -27,7 +27,7 @@ down:
 up:
 	@$(MAKE) start
 	@$(MAKE) composeri
-	@$(MAKE) npmi
+	@#$(MAKE) npmi
 	@$(MAKE) won
 
 composeri:
