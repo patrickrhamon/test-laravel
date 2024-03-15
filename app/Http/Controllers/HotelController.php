@@ -15,7 +15,7 @@ class HotelController extends Controller
     public function index(Request $request)
     {
         $service = new HotelService();
-        $data['hotels'] = $service->getHotelsPaginated($request->get('cursor'));
+        $data['hotels'] = $service->getHotelsPaginated($request->get('cursor'), $request->get('name'));
 dd($data);
 //        $data['hotels'] = DB::table('hotels')->orderBy('name')->cursorPaginate(5);
 
