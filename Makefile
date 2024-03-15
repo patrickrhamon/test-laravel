@@ -30,6 +30,11 @@ up:
 	@#$(MAKE) npmi
 	@$(MAKE) won
 
+setup:
+	@$(MAKE) up
+	@$(MAKE) migrate
+	@$(MAKE) seed
+
 composeri:
 	@$(MAKE) composer-install
 
